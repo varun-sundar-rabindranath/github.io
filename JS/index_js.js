@@ -6,8 +6,7 @@ $(document).ready(
     var canvas = document.getElementById('tutorial');
     var ctx    = canvas.getContext('2d');
 
-    //ctx.fillStyle = 'rgb(200, 0, 0)';
-    //ctx.fillRect(10, 10, 50, 50);
+    drawRects(ctx);
 
     drawTriangle(ctx);
 
@@ -22,4 +21,10 @@ function drawTriangle(ctx) {
   ctx.lineTo(100, 25);
   ctx.closePath();
   ctx.stroke();
+}
+
+function drawRects(ctx) {
+  // Draw and fill rectangle
+  ctx.fillStyle = 'rgb(200, 0, 0)';
+  ctx.fillRect(10, 10, 50, 50);
 }
