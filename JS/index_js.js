@@ -15,11 +15,11 @@ $(document).ready(
 );
 
 function drawTriangle(ctx) {
-    // Draw triangle
-    ctx.beginPath();
-    ctx.moveTo(75,  50);
-    ctx.lineTo(100, 75);
-    ctx.lineTo(100, 25);
-    ctx.closePath();
-    ctx.stroke();
+  // Draw triangle
+  ctx.beginPath();
+  ctx.moveTo(75,  50);
+  ctx.lineTo(100, 75);
+  ctx.lineTo(100, 25);
+  ctx.closePath();
+  ctx.stroke();
 }
