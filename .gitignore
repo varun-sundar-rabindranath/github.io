@@ -1,0 +1,6 @@
+# Hidden files ##
+.*
+!/.gitignore
+# Backup files ##
+*.swp
+*.bak
