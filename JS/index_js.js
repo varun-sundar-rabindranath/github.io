@@ -9,6 +9,12 @@ $(document).ready(
     //ctx.fillStyle = 'rgb(200, 0, 0)';
     //ctx.fillRect(10, 10, 50, 50);
 
+    drawTriangle(ctx);
+
+  }
+);
+
+function drawTriangle(ctx) {
     // Draw triangle
     ctx.beginPath();
     ctx.moveTo(75,  50);
@@ -16,6 +22,4 @@ $(document).ready(
     ctx.lineTo(100, 25);
     ctx.closePath();
     ctx.stroke();
-
-  }
-);
+}
