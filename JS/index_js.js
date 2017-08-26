@@ -6,9 +6,9 @@ $(document).ready(
     var canvas = document.getElementById('tutorial');
     var ctx    = canvas.getContext('2d');
 
-    drawRects(ctx);
+    //drawRects(ctx);
 
-    drawTriangle(ctx);
+    //drawTriangle(ctx);
 
   }
 );
