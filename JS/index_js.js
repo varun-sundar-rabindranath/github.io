@@ -14,9 +14,9 @@ $(document).ready(
 
     //drawLine(ctx);
 
-    //drawBeizerQuad(ctx);
+    //drawBezierQuad(ctx);
 
-    drawBeizerCube(ctx);
+    drawBezierCube(ctx);
   }
 );
 
@@ -52,8 +52,8 @@ function drawLine(ctx) {
   ctx.stroke();
 }
 
-function drawBeizerQuad(ctx) {
-  // Draw quadratic beizer curve (1 control point)
+function drawBezierQuad(ctx) {
+  // Draw quadratic bezier curve (1 control point)
   ctx.beginPath();
   ctx.moveTo(75, 75);
   ctx.quadraticCurveTo(100, 100, 125, 75);
@@ -61,8 +61,8 @@ function drawBeizerQuad(ctx) {
   ctx.stroke();
 }
 
-function drawBeizerCube(ctx) {
-  // Draw cubic beizer curve (2 control points)
+function drawBezierCube(ctx) {
+  // Draw cubic bezier curve (2 control points)
   ctx.beginPath();
   ctx.moveTo(75, 75);
   ctx.bezierCurveTo(70, 100, 120, 100, 125, 75);
