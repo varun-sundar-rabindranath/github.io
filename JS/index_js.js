@@ -10,8 +10,9 @@ $(document).ready(
 
     //drawTriangle(ctx);
 
-    drawArc(ctx);
+    //drawArc(ctx);
 
+    drawLine(ctx);
   }
 );
 
@@ -37,4 +38,12 @@ function drawArc(ctx) {
   ctx.moveTo(75, 75);
   ctx.arc(75, 75, 50, 0, Math.PI * 1.5, false);
   ctx.fill();
+}
+
+function drawLine(ctx) {
+  // Draw line
+  ctx.beginPath();
+  ctx.moveTo(75, 75);
+  ctx.lineTo(125, 75);
+  ctx.stroke();
 }
