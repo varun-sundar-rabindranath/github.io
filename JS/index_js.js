@@ -18,7 +18,9 @@ $(document).ready(
 
     //drawBezierCube(ctx);
 
-    usePath2D(ctx);
+    //usePath2D(ctx);
+
+    drawDashedRectangle(ctx);
   }
 );
 
@@ -72,6 +74,14 @@ function drawBezierCube(ctx) {
   ctx.stroke();
 }
 
+function drawDashedRectangle(ctx) {
+  // Draw a rect with dashed lines
+  ctx.beginPath();
+  ctx.moveTo(75, 75);
+  ctx.setLineDash([4, 2]);
+  ctx.strokeRect(75, 75, 50, 50);
+}
+
 function usePath2D(ctx) {
 
   // Decl rectangle
@@ -87,3 +97,4 @@ function usePath2D(ctx) {
   ctx.stroke(circle);
   ctx.stroke(rectangle);
 }
+
