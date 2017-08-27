@@ -16,7 +16,9 @@ $(document).ready(
 
     //drawBezierQuad(ctx);
 
-    drawBezierCube(ctx);
+    //drawBezierCube(ctx);
+
+    usePath2D(ctx);
   }
 );
 
@@ -68,4 +70,20 @@ function drawBezierCube(ctx) {
   ctx.bezierCurveTo(70, 100, 120, 100, 125, 75);
   //ctx.closePath();
   ctx.stroke();
+}
+
+function usePath2D(ctx) {
+
+  // Decl rectangle
+  var rectangle = new Path2D();
+  rectangle.moveTo(75, 75);
+  rectangle.rect(75, 75, 50, 50);
+
+  // Decl circle
+  var circle = new Path2D();
+  circle.arc(75, 75, 15, 0, Math.PI * 2, true);
+
+  // Draw the figures
+  ctx.stroke(circle);
+  ctx.stroke(rectangle);
 }
