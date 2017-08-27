@@ -22,7 +22,9 @@ $(document).ready(
 
     //drawDashedRectangle(ctx);
 
-    fillstrokeStyleDemo(ctx);
+    //fillstrokeStyleDemo(ctx);
+
+    gradientDemo(ctx);
   }
 );
 
@@ -110,4 +112,19 @@ function fillstrokeStyleDemo(ctx) {
   ctx.beginPath();
   ctx.fillRect(75, 75, 25, 25);
   ctx.strokeRect(100, 75, 25, 25);
+}
+
+function gradientDemo(ctx) {
+  // Demonstrate how to use linear/radial gradients
+
+  // Setup linear gradient
+  var lingrad = ctx.createLinearGradient(0, 0, 1000, 1000);
+  lingrad.addColorStop(0, 'orange');
+  lingrad.addColorStop(1, 'green');
+
+  // Assign
+  ctx.fillStyle = lingrad;
+
+  // Draw
+  ctx.fillRect(10, 10, 900, 900);
 }
