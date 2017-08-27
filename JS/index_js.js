@@ -12,7 +12,9 @@ $(document).ready(
 
     //drawArc(ctx);
 
-    drawLine(ctx);
+    //drawLine(ctx);
+
+    drawBeizerQuad(ctx);
   }
 );
 
@@ -45,5 +47,14 @@ function drawLine(ctx) {
   ctx.beginPath();
   ctx.moveTo(75, 75);
   ctx.lineTo(125, 75);
+  ctx.stroke();
+}
+
+function drawBeizerQuad(ctx) {
+  // Draw quadratic beizer curve
+  ctx.beginPath();
+  ctx.moveTo(75, 75);
+  ctx.quadraticCurveTo(100, 100, 125, 75);
+  //ctx.closePath();
   ctx.stroke();
 }
