@@ -14,7 +14,9 @@ $(document).ready(
 
     //drawLine(ctx);
 
-    drawBeizerQuad(ctx);
+    //drawBeizerQuad(ctx);
+
+    drawBeizerCube(ctx);
   }
 );
 
@@ -51,10 +53,19 @@ function drawLine(ctx) {
 }
 
 function drawBeizerQuad(ctx) {
-  // Draw quadratic beizer curve
+  // Draw quadratic beizer curve (1 control point)
   ctx.beginPath();
   ctx.moveTo(75, 75);
   ctx.quadraticCurveTo(100, 100, 125, 75);
+  //ctx.closePath();
+  ctx.stroke();
+}
+
+function drawBeizerCube(ctx) {
+  // Draw cubic beizer curve (2 control points)
+  ctx.beginPath();
+  ctx.moveTo(75, 75);
+  ctx.bezierCurveTo(70, 100, 120, 100, 125, 75);
   //ctx.closePath();
   ctx.stroke();
 }
