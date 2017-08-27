@@ -20,7 +20,9 @@ $(document).ready(
 
     //usePath2D(ctx);
 
-    drawDashedRectangle(ctx);
+    //drawDashedRectangle(ctx);
+
+    fillstrokeStyleDemo(ctx);
   }
 );
 
@@ -98,3 +100,14 @@ function usePath2D(ctx) {
   ctx.stroke(rectangle);
 }
 
+function fillstrokeStyleDemo(ctx) {
+  // Demonstrate the how fill/stroke styles are used
+
+  // Assign colors to fill/stroke operations
+  ctx.fillStyle   = "rgba(100, 0, 100, 1)";
+  ctx.strokeStyle = "rgba(0, 100, 100, 1)";
+
+  ctx.beginPath();
+  ctx.fillRect(75, 75, 25, 25);
+  ctx.strokeRect(100, 75, 25, 25);
+}
