@@ -199,7 +199,7 @@ function imagePatterns(ctx) {
 
   // Setup image
   var img = new Image();
-  img.src='https://static.brusheezy.com/system/resources/previews/000/040/720/non_2x/bubbles-pattern-photoshop-patterns.png';
+  img.src='https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png';
 
   img.onload = function() {
 
