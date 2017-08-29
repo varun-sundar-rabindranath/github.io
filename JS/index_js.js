@@ -25,6 +25,8 @@ $(document).ready(
     //fillstrokeStyleDemo(ctx);
 
     //linearGradientDemo(ctx);
+
+    radialGradientDemo(ctx);
   }
 );
 
@@ -115,7 +117,7 @@ function fillstrokeStyleDemo(ctx) {
 }
 
 function linearGradientDemo(ctx) {
-  // Demonstrate how to use linear/radial gradients
+  // Demonstrate how to use radial gradients
 
   // Setup linear gradient
   var lingrad = ctx.createLinearGradient(0, 0, 1000, 1000);
@@ -138,4 +140,54 @@ function linearGradientDemo(ctx) {
 
   // Draw
   ctx.fillRect(1000, 0, 1000, 1000);
+}
+
+function radialGradientDemo(ctx) {
+  // Demonstrate how to use radial gradients
+
+  // Offset to place all balls
+  var offset = 200;
+
+  // Setup radial gradient 1
+  var radgrad1 = ctx.createRadialGradient(125, 125, 50, 150, 150, 200);
+  radgrad1.addColorStop(0,   'lightgreen');
+  radgrad1.addColorStop(0.9, 'green');
+  radgrad1.addColorStop(1,   "rgba(0, 255, 0, 0)");
+
+  // Setup radial gradient 2
+  var radgrad2 = ctx.createRadialGradient(125 + offset, 125, 25,
+                                          150 + offset, 150, 200);
+  radgrad2.addColorStop(0,   'lightyellow');
+  radgrad2.addColorStop(0.9, 'yellow');
+  radgrad2.addColorStop(1,   "rgba(255, 255, 0, 0)");
+
+  // Setup radial gradient 2
+  var radgrad3 = ctx.createRadialGradient(125, 125 + offset, 25,
+                                          150, 150 + offset, 100);
+  radgrad3.addColorStop(0,   'gray');
+  radgrad3.addColorStop(0.9, 'black');
+  radgrad3.addColorStop(1,   "rgba(0, 0, 0, 0)");
+
+  // Setup radial gradient 2
+  var radgrad4 = ctx.createRadialGradient(125 + offset, 125 + offset, 25,
+                                          150 + offset, 150 + offset, 100);
+  radgrad4.addColorStop(0,   'lightblue');
+  radgrad4.addColorStop(0.9, 'blue');
+  radgrad4.addColorStop(1,   "rgba(0, 0, 255, 0)");
+
+  // Assign draw radgrad1
+  ctx.fillStyle = radgrad1;
+  ctx.fillRect(0, 0, 2000, 2000);
+
+  // Assign draw radgrad2
+  ctx.fillStyle = radgrad2;
+  ctx.fillRect(0, 0, 2000, 2000);
+
+  // Assign draw radgrad3
+  ctx.fillStyle = radgrad3;
+  ctx.fillRect(0, 0, 2000, 2000);
+
+  // Assign draw radgrad4
+  ctx.fillStyle = radgrad4;
+  ctx.fillRect(0, 0, 2000, 2000);
 }
