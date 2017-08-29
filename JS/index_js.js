@@ -119,12 +119,23 @@ function gradientDemo(ctx) {
 
   // Setup linear gradient
   var lingrad = ctx.createLinearGradient(0, 0, 1000, 1000);
-  lingrad.addColorStop(0, 'orange');
-  lingrad.addColorStop(1, 'green');
+  lingrad.addColorStop(0, 'red');
+  lingrad.addColorStop(1, 'black');
 
   // Assign
   ctx.fillStyle = lingrad;
 
   // Draw
-  ctx.fillRect(10, 10, 900, 900);
+  ctx.fillRect(0, 0, 1000, 1000);
+
+  // Setup linear gradient 2
+  var lingrad2 = ctx.createLinearGradient(1000, 1000, 2000, 0);
+  lingrad2.addColorStop(0, 'black');
+  lingrad2.addColorStop(1, 'red');
+
+  //// Assign
+  ctx.fillStyle = lingrad2;
+
+  // Draw
+  ctx.fillRect(1000, 0, 1000, 1000);
 }
