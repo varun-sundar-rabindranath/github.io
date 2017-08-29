@@ -26,7 +26,9 @@ $(document).ready(
 
     //linearGradientDemo(ctx);
 
-    radialGradientDemo(ctx);
+    //radialGradientDemo(ctx);
+
+    imagePatterns(ctx);
   }
 );
 
@@ -190,4 +192,23 @@ function radialGradientDemo(ctx) {
   // Assign draw radgrad4
   ctx.fillStyle = radgrad4;
   ctx.fillRect(0, 0, 2000, 2000);
+}
+
+function imagePatterns(ctx) {
+  // Demonstrate how to use image patters
+
+  // Setup image
+  var img = new Image();
+  img.src='https://static.brusheezy.com/system/resources/previews/000/040/720/non_2x/bubbles-pattern-photoshop-patterns.png';
+
+  img.onload = function() {
+
+    // Create a pattern out of that image
+    var ptrn = ctx.createPattern(img, 'repeat');
+
+    // Assign and draw
+    ctx.fillStyle = ptrn;
+    ctx.fillRect(0, 0, 2000, 2000);
+
+  }
 }
