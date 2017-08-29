@@ -24,7 +24,7 @@ $(document).ready(
 
     //fillstrokeStyleDemo(ctx);
 
-    gradientDemo(ctx);
+    //linearGradientDemo(ctx);
   }
 );
 
@@ -114,7 +114,7 @@ function fillstrokeStyleDemo(ctx) {
   ctx.strokeRect(100, 75, 25, 25);
 }
 
-function gradientDemo(ctx) {
+function linearGradientDemo(ctx) {
   // Demonstrate how to use linear/radial gradients
 
   // Setup linear gradient
