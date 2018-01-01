@@ -3,3 +3,13 @@
   width:      100%;
   border:     1px solid black;
 }
+
+.mainbody {
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 5px solid black;
+}

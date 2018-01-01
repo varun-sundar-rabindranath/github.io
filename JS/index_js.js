@@ -28,7 +28,10 @@ $(document).ready(
 
     //radialGradientDemo(ctx);
 
-    imagePatterns(ctx);
+    //imagePatterns(ctx);
+
+    //clipDemo(ctx);
+
   }
 );
 
@@ -212,3 +215,20 @@ function imagePatterns(ctx) {
 
   }
 }
+
+function clipDemo(ctx) {
+
+  // Demonstrate how to  clip
+
+  // Clip path
+  ctx.beginPath();
+  ctx.moveTo(75,  50);
+  ctx.lineTo(100, 75);
+  ctx.lineTo(100, 25);
+  ctx.clip();
+
+  linearGradientDemo(ctx);
+
+  console.log("Clipped !!");
+}
+
