@@ -1,6 +1,6 @@
 
 // Particles in system
-var NPARTICLES = 300
+var NPARTICLES = 500
 
 // world timer
 var tick = 0;
@@ -14,6 +14,11 @@ var cheight;
 // Particle array
 var parray = []
 
+// Explosion Radius
+var explodeRad      = 300
+var explodeStrength = 2.5 // push particles with this factor
+var floorFriction   = 0.1 // slow down particles with this factor
+
 // A ball's radial gradient properties
 var rg1 = { start_posx: 125,
             start_posy: 125,
@@ -25,6 +30,23 @@ var rg1 = { start_posx: 125,
             outer_c:    "green",
             border :    "rgba(0, 255, 0, 0)",
             tick   :    0};
+
+// Utilities
+
+// distance between 2 points
+function dist(x1, y1, x2, y2) {
+    return (Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+}
+
+// norm of a vector
+function norm_l2(x1, x2) {
+  return Math.sqrt(x1 * x1 + x2 * x2)
+}
+
+// vector dot product
+function dot(x1, y1, x2, y2) {
+  return x1 * x2 + y1 * y2
+}
 
 $(document).ready(
   function() {
@@ -80,6 +102,8 @@ function init_particles() {
                      y : py,
                      vx : pvx,
                      vy : pvy,
+                     bvx: pvx, // base velocity ; velocity cannot go low
+                     bvy: pvy, // beyond this in magnitude
                      r : pr,
                      color : pcolor})
     }
@@ -95,9 +119,9 @@ function draw_particles() {
     for (var pidx = 0; pidx < NPARTICLES; pidx++) {
 
         // update particle position
-        particle_pos_after_tick(pidx);
+        update_particle_pos_after_tick(pidx);
         // update particle velocity
-        particle_vel_after_tick(pidx);
+        update_particle_vel_after_tick(pidx);
 
         // draw particle
         draw_particle(parray[pidx]);
@@ -139,9 +163,8 @@ function particle_pos_after_tick(pid) {
     ny = ny > cheight ? cheight - (ny - cheight) : ny;
     ny = ny < 0       ? ny * -1                  : ny;
 
-    // update particle position after collision handling
-    parray[pid]["x"] = nx;
-    parray[pid]["y"] = ny;
+    // return particle position after collision handling
+    return [nx, ny]
 }
 
 function particle_vel_after_tick(pid) {
@@ -158,9 +181,28 @@ function particle_vel_after_tick(pid) {
     nvx = (nx > cwidth  || nx < 0) ? nvx * -1 : nvx;
     nvy = (ny > cheight || ny < 0) ? nvy * -1 : nvy;
 
-    // update particle position after collision handling
-    parray[pid]["vx"] = nvx;
-    parray[pid]["vy"] = nvy;
+    if (norm_l2(nvx, nvy) > norm_l2(parray[pid]["bvx"], parray[pid]["bvy"])) {
+      // account for friction
+      nvx = nvx - nvx * floorFriction
+      nvy = nvy - nvy * floorFriction
+    }
+
+    // return particle velocity after collision handling
+    return [nvx, nvy]
+}
+
+function update_particle_pos_after_tick(pid) {
+
+  var updated_pos = particle_pos_after_tick(pid)
+  parray[pid]["x"] = updated_pos[0]
+  parray[pid]["y"] = updated_pos[1]
+}
+
+function update_particle_vel_after_tick(pid) {
+
+  var updated_vel = particle_vel_after_tick(pid)
+  parray[pid]["vx"] = updated_vel[0]
+  parray[pid]["vy"] = updated_vel[1]
 }
 
 function draw_particle(p) {
@@ -176,7 +218,6 @@ function draw_particle(p) {
 function mouseClick(evt) {
 
     // Create explosion centered at mouse position!! :)
-    var explodeRad = 150;
 
     for (var pidx = 0; pidx < NPARTICLES; pidx++) {
 
@@ -186,24 +227,54 @@ function mouseClick(evt) {
 
         if (dist(evt.clientX, evt.clientY, px, py) < explodeRad) {
             // particle with in explosion radius
-            explodeRepel(pidx, explodeRad)
+            explodeRepel(pidx, evt.clientX, evt.clientY)
         }
     }
 }
 
-function dist(x1, y1, x2, y2) {
-    return (Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+// is the particle indexed at pid moving towards (x, y) ?
+function moving_towards(pid, x, y) {
+
+  // lets look at the particle position after tick
+  var pos_after_tick = particle_pos_after_tick(pid);
+  var x_after_tick = pos_after_tick[0];
+  var y_after_tick = pos_after_tick[1];
+
+  var d_before_tick = dist(parray[pid]["x"], parray[pid]["y"], x, y);
+  var d_after_tick  = dist(x_after_tick, y_after_tick, x, y);
+
+  if (d_after_tick < d_before_tick) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
-function explodeRepel(pid, explodeRad) {
+function explodeRepel(pid, explodeX, explodeY) {
 
-    // invert particle's velocity
-    parray[pid]["vx"] *= -1;
-    parray[pid]["vy"] *= -1;
+    // deflect particle
+    var push_x = parray[pid]["x"] - explodeX
+    var push_y = parray[pid]["y"] - explodeY
 
-    // modify particle position so it is out of the explosion region
-    //parray[pid]["x"] += parray[pid]["vx"] * Math.abs(explodeRad / parray[pid]["vx"])
-    //parray[pid]["y"] += parray[pid]["vy"] * Math.abs(explodeRad / parray[pid]["vy"])
+    // avoid 0 push vector
+    if (push_x == 0) { push_x += 0.01; }
+    if (push_y == 0) { push_y += 0.01; }
+
+    // make push vector, a unit vector
+    var len_push_vector = norm_l2(push_x, push_y)
+    push_x = push_x / len_push_vector
+    push_y = push_y / len_push_vector
+
+    // how much energy does the particle have in the perpendicular direction
+    var e = dot(parray[pid]["vx"], parray[pid]["vy"], push_x, push_y) + 0.1 // latent energy
+
+    // alter push vector to reflect energy
+    push_x = push_x * Math.abs(e)
+    push_y = push_y * Math.abs(e)
+
+    // deflect particle
+    parray[pid]["vx"] = push_x * explodeStrength
+    parray[pid]["vy"] = push_y * explodeStrength
 }
 
 function animateDemo() {
