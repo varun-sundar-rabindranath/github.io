@@ -1,6 +1,6 @@
 
 // Particles in system
-var NPARTICLES = 500
+var NPARTICLES = 100
 
 // world timer
 var tick = 0;
@@ -211,8 +211,12 @@ function draw_particle(p) {
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
     ctx.closePath();
 
+    ctx.shadowBlur = 100;
+    ctx.shadowColor = p.color;
     ctx.fillStyle = p.color;
     ctx.fill();
+
+    //ctx.shadowColor = "white";
 }
 
 function mouseClick(evt) {
