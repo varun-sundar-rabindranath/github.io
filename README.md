@@ -1,2 +1,2 @@
 # githubio-web
-Varun's Github profile.
+Fun with HTML canvas
